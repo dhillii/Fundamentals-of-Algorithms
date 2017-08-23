@@ -16,9 +16,11 @@ void bubbleSort(int Arr[]);
 
 void bubbleSort(int Arr[])
 {
-	for (int idx = 0; idx < sizeof(Arr)-1; idx++)
+	int ArrSize = sizeof(Arr);
+
+	for (int idx = 0; idx < ArrSize-1; idx++)
 	{
-		for(int idx2 = sizeof(Arr); idx2 >= idx + 1; idx2--)
+		for(int idx2 = ArrSize; idx2 >= idx + 1; idx2--)
 			{
 				if( Arr[idx2] < Arr[idx2-1])
 				{
@@ -37,9 +39,13 @@ void bubbleSort(int Arr[])
 int main()
 {
 
-	int A[9] = {9,1,8,2,7,3,6,4,5};
+	int A[8] = {8, 5, 3, 7, 2, 1, 25, 100};
 
-	for (int i = 0; i < 9; i++)
+
+	int ArrSize = sizeof(A)/4;
+
+	
+	for (int i = 0; i < ArrSize; i++)
 	{
 		cout << A[i] << " ";
 	}
@@ -48,13 +54,13 @@ int main()
 
 	bubbleSort(A);
 
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < ArrSize; i++)
 	{
 		cout << A[i] << " ";
 	}
 
 	cout << endl;
 
-
+	return(0);
 
 }
