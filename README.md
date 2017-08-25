@@ -4,4 +4,4 @@ This Repo conains the labs done by David Hill in Fundamentals of Algorithms 2017
 
 ## Lab 1
 
-![Output:](Fundamentals-of-Algorithms/David_Lab1/Lab 1 Output.png)
+![atl text](https://github.com/dhillii/Fundamentals-of-Algorithms/blob/master/David_Lab1/Lab%201%20Output.png)
