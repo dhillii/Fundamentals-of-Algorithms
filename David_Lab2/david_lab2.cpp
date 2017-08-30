@@ -66,35 +66,15 @@ void shiftLeft(vector<int> inputArr, vector<int> &outputArr, int positions)
 	input_num_str = to_string(shifted_result);					// Covert shifted number back to a string
 	int input_num_size = readNumberAsArrayFromString(input_num_str, outputArr);				// Function call to convert answer back into vector*/
 
-	int carry_;
-
-	for(int idx = inputArr.size(); idx > 0; idx--)
+	for(int idx = inputArr.size(); idx < 0; idx++)
 	{
-		int carry = 0;
 
-		int shift_res = inputArr[idx-1] << positions;
-		
-		if(shift_res > 9)
-		{
-			carry = intToVector(shift_res)[0];
-			int shift_res_2 = intToVector(shift_res)[1];
-			outputArr.insert(outputArr.begin(), shift_res_2);
-		}
 
-		else
-		{
-			shift_res = shift_res + carry_;
-			outputArr.insert(outputArr.begin(), shift_res);
-		}
 
-		carry_ = carry;
+
 	}
 
-	if(carry_ > 0)
-	{
-		outputArr.insert(outputArr.begin(), carry_);
-	}
-
+	
 
 }
 
@@ -111,12 +91,33 @@ void printNum(vector<int> inputArr)
 void vectorSum(vector<int> inputArr1, vector<int> inputArr2, vector<int> &Sum)
 {
 	int carry_;
+	int Largest;
 
-	for(int idx = inputArr1.size(); idx > 0; idx--)
+	if(inputArr1.size() > inputArr2.size())
+	{
+		Largest = inputArr1.size();
+	}
+
+	else
+	{
+		Largest = inputArr2.size();
+	}
+
+	for(int idx = Largest; idx > 0; idx--)
 	{
 		int carry = 0;
 
-		int add = inputArr1[idx] + inputArr2[idx];
+		while(inputArr1.size() > inputArr2.size())
+		{
+			inputArr2.insert(inputArr2.begin(), 0);
+		}
+
+		while(inputArr1.size() < inputArr2.size())
+		{
+			inputArr1.insert(inputArr1.begin(), 0);
+		}
+
+		int add = inputArr1[idx-1] + inputArr2[idx-1];
 		
 		if(add > 9)
 		{
@@ -127,7 +128,7 @@ void vectorSum(vector<int> inputArr1, vector<int> inputArr2, vector<int> &Sum)
 
 		else
 		{
-			add = add + carry;
+			add = add + carry_;
 			Sum.insert(Sum.begin(), add);
 		}
 
@@ -144,22 +145,36 @@ void vectorSum(vector<int> inputArr1, vector<int> inputArr2, vector<int> &Sum)
 int main()
 {
 	vector<int> A;
+	
 	A.push_back(1);
 	A.push_back(2);
 	A.push_back(3);
 	A.push_back(4);
+	A.push_back(5);
+	
 
 	vector<int> B;
-	B.push_back(0);
 	B.push_back(1);
+	B.push_back(2);
+	B.push_back(3);
+	B.push_back(4);
+	B.push_back(5);
 
 	vector<int> C;
 
 	
-	shiftLeft(A, C, 2);
+	//shiftLeft(A, C, 2);
 
+	vectorSum(A, B, C);
+
+
+	printNum(A);
+
+	printNum(B);
 
 	printNum(C);
+
+
 
 
 	
