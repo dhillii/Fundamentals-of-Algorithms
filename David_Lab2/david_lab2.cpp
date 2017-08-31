@@ -1,10 +1,8 @@
 /*
-
 Author: David Hill, Jr
 Class: Fundamentals of Algorithms
 Assigmnent: Lab 2
 Due: 9/4/2017
-
 */
 
 #include <iostream>
@@ -14,13 +12,15 @@ Due: 9/4/2017
 
 using namespace std;
 
-// This function parses a number as a string, saves each digit
-// in the num_array that is passed in, low-digits first, and
-// returns the number of digits in that number.
-// If we can't parse the number, returns -1.
-// Example: If num_as_string = "1234",
-//          then num_array[] = {4, 3, 2, 1} and
-//          the return value is 4.
+/*
+This function parses a number as a string, saves each digit
+in the num_array that is passed in, low-digits first, and
+returns the number of digits in that number.
+If we can't parse the number, returns -1.
+Example: If num_as_string = "1234",
+        Then num_array[] = {4, 3, 2, 1} and
+        the return value is 4.
+*/
 int readNumberAsArrayFromString(string &num_as_string, vector<int> &num_array) 
 {
   for (int i = 0; i < num_as_string.length(); i++) 
@@ -31,9 +31,11 @@ int readNumberAsArrayFromString(string &num_as_string, vector<int> &num_array)
 }
 
 
-// Takes a number represented as an array with its digits,
-// low to heigh, as well as its length (i.e. number of digits)
-// and return a string representation of that number.
+/*
+Takes a number represented as an array with its digits,
+low to heigh, as well as its length (i.e. number of digits)
+and return a string representation of that number.
+*/
 string numberAsArrayToString(vector<int> num_array, int length) {
   if (length <= 0 ) 
   {
@@ -48,8 +50,12 @@ string numberAsArrayToString(vector<int> num_array, int length) {
 }
 
 
-
-
+/*
+This function takes a interger as input and places its contents into a vector. A vector of integers is returned.
+Example:
+		int x = 123;
+		vector<int> x_vector = intToVector(x);
+*/
 vector<int> intToVector(int input_num)
 {
 	vector<int> output_vector;
@@ -59,12 +65,21 @@ vector<int> intToVector(int input_num)
 
 }
 
+/*
+This function takes a vector as input and converts the vector into an integer and returns the result.
+*/
 int vectortoInt(vector<int> input_num)
 {
 	string input_num_str = numberAsArrayToString(input_num, input_num.size());
 	return stoi(input_num_str);
 }
 
+
+/*
+Takes two vectors and an integer as input shifts input array by a number of 
+positions with a power of 10. The output is stored in a output vector. This function
+returns void.
+*/
 void shiftLeft(vector<int> inputArr, vector<int> &outputArr, int positions)
 {
 	string input_num_str = numberAsArrayToString(inputArr, inputArr.size());
@@ -78,7 +93,9 @@ void shiftLeft(vector<int> inputArr, vector<int> &outputArr, int positions)
 }
 
 	
-
+/*
+This function prints each element of a number vector.
+*/
 void printNum(vector<int> inputArr)
 {
 	for(int idx = 0; idx < inputArr.size(); idx++)
@@ -89,11 +106,18 @@ void printNum(vector<int> inputArr)
 	cout << endl;
 }
 
+/*
+Uses Naive algorithm to add two numbers stored as vectors. Takes two
+integer vectors as input and puts sum into a final vector called Sum
+*/
 void vectorSum(vector<int> inputArr1, vector<int> inputArr2, vector<int> &Sum)
 {
 	int carry_ = 0;
 	int Largest;
 
+	/*
+	Find largest vector to know how many times to loop for subtraction.
+	*/
 	if(inputArr1.size() > inputArr2.size())
 	{
 		Largest = inputArr1.size();
@@ -108,12 +132,15 @@ void vectorSum(vector<int> inputArr1, vector<int> inputArr2, vector<int> &Sum)
 	{
 		int carry = 0;
 
-		while(inputArr1.size() > inputArr2.size())
+		/*
+		If vectors are not of same size, left-pad smaller vector with 0's
+		*/
+		while(inputArr1.size() > inputArr2.size())				
 		{
 			inputArr2.insert(inputArr2.begin(), 0);
 		}
 
-		while(inputArr1.size() < inputArr2.size())
+		while(inputArr1.size() < inputArr2.size())		
 		{
 			inputArr1.insert(inputArr1.begin(), 0);
 		}
@@ -143,11 +170,18 @@ void vectorSum(vector<int> inputArr1, vector<int> inputArr2, vector<int> &Sum)
 
 }
 
+/*
+Uses Naive algorithm to subtract two numbers stored as vectors. Takes two
+integer vectors as input and puts result into a final vector called Result
+*/
 void vectorSub(vector<int> inputArr1, vector<int> inputArr2, vector<int> &Result)
 {
 	
 	int Largest;
 
+	/*
+	Find largest vector to know how many times to loop for subtraction.
+	*/
 	if(inputArr1.size() > inputArr2.size())
 	{
 		Largest = inputArr1.size();
@@ -158,6 +192,9 @@ void vectorSub(vector<int> inputArr1, vector<int> inputArr2, vector<int> &Result
 		Largest = inputArr2.size();
 	}
 
+	/*
+		If vectors are not of same size, left-pad smaller vector with 0's
+	*/
 	while(inputArr1.size() > inputArr2.size())
 	{
 		inputArr2.insert(inputArr2.begin(), 0);
@@ -168,7 +205,9 @@ void vectorSub(vector<int> inputArr1, vector<int> inputArr2, vector<int> &Result
 		inputArr1.insert(inputArr1.begin(), 0);
 	}
 
-
+	/*
+	Logic to subtract if first vector is smaller than the second indicating a negative result.
+	*/
 	if(vectortoInt(inputArr1) < vectortoInt(inputArr2))
 	{
 		int neg_result = vectortoInt(inputArr2) - vectortoInt(inputArr1);
@@ -181,6 +220,10 @@ void vectorSub(vector<int> inputArr1, vector<int> inputArr2, vector<int> &Result
 		Result = answer;		
 	}
 
+	/*
+	Logic to subtract if first vector is larger than or equal to the second vector leading to a 
+	positive result.
+	*/
 	else
 	{
 		for(int idx = Largest; idx > 0; idx--)
@@ -213,10 +256,6 @@ int main()
 	A.push_back(3);
 	A.push_back(1);
 	
-	
-
-
-	
 
 	vector<int> B;
 	B.push_back(1);
@@ -236,14 +275,6 @@ int main()
 	printNum(B);
 
 	printNum(C);
-
-
-
-
-	
-
-
-
 
 
 }
