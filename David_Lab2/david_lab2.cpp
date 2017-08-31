@@ -10,6 +10,7 @@ Due: 9/4/2017
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -58,25 +59,25 @@ vector<int> intToVector(int input_num)
 
 }
 
+int vectortoInt(vector<int> input_num)
+{
+	string input_num_str = numberAsArrayToString(input_num, input_num.size());
+	return stoi(input_num_str);
+}
+
 void shiftLeft(vector<int> inputArr, vector<int> &outputArr, int positions)
 {
-	/*string input_num_str = numberAsArrayToString(inputArr, inputArr.size());
-	int input_num_lit = stoi(input_num_str);					// Convert number as string to an interger 
-	int shifted_result = input_num_lit << positions;			// Shift interger by specified positions
-	input_num_str = to_string(shifted_result);					// Covert shifted number back to a string
-	int input_num_size = readNumberAsArrayFromString(input_num_str, outputArr);				// Function call to convert answer back into vector*/
+	string input_num_str = numberAsArrayToString(inputArr, inputArr.size());
+	int input_num_lit = stoi(input_num_str);
 
-	for(int idx = inputArr.size(); idx < 0; idx++)
-	{
+	int shifted_result = input_num_lit * (pow(10, positions));
 
-
-
-
-	}
-
-	
+	input_num_str = to_string(shifted_result);					
+	int input_num_size = readNumberAsArrayFromString(input_num_str, outputArr);				
 
 }
+
+	
 
 void printNum(vector<int> inputArr)
 {
@@ -90,7 +91,7 @@ void printNum(vector<int> inputArr)
 
 void vectorSum(vector<int> inputArr1, vector<int> inputArr2, vector<int> &Sum)
 {
-	int carry_;
+	int carry_ = 0;
 	int Largest;
 
 	if(inputArr1.size() > inputArr2.size())
@@ -142,34 +143,96 @@ void vectorSum(vector<int> inputArr1, vector<int> inputArr2, vector<int> &Sum)
 
 }
 
+void vectorSub(vector<int> inputArr1, vector<int> inputArr2, vector<int> &Result)
+{
+	
+	int Largest;
+
+	if(inputArr1.size() > inputArr2.size())
+	{
+		Largest = inputArr1.size();
+	}
+
+	else
+	{
+		Largest = inputArr2.size();
+	}
+
+	while(inputArr1.size() > inputArr2.size())
+	{
+		inputArr2.insert(inputArr2.begin(), 0);
+	}
+
+	while(inputArr1.size() < inputArr2.size())
+	{
+		inputArr1.insert(inputArr1.begin(), 0);
+	}
+
+
+	if(vectortoInt(inputArr1) < vectortoInt(inputArr2))
+	{
+		int neg_result = vectortoInt(inputArr2) - vectortoInt(inputArr1);
+		vector<int> answer = intToVector(neg_result);
+
+		int flip = answer[0];
+
+		answer[0] = answer[0] - (2 * flip);
+
+		Result = answer;		
+	}
+
+	else
+	{
+		for(int idx = Largest; idx > 0; idx--)
+		{
+		
+			if(inputArr1[idx-1] < inputArr2[idx-1])
+			{
+				inputArr1[idx-2] = inputArr1[idx-2] - 1;
+				int borrow = 10 + inputArr1[idx-1];
+				int result = borrow - inputArr2[idx-1];
+				Result.insert(Result.begin(), result);
+			}
+			else
+			{
+				int sub = inputArr1[idx-1] - inputArr2[idx-1];
+				Result.insert(Result.begin(), sub);
+			}
+
+	
+		}
+	}
+
+}
+
 int main()
 {
 	vector<int> A;
-	
 	A.push_back(1);
 	A.push_back(2);
 	A.push_back(3);
-	A.push_back(4);
-	A.push_back(5);
+	A.push_back(1);
+	
+	
+
+
 	
 
 	vector<int> B;
 	B.push_back(1);
 	B.push_back(2);
 	B.push_back(3);
-	B.push_back(4);
-	B.push_back(5);
+	B.push_back(1);
+	
+
+
 
 	vector<int> C;
 
 	
-	//shiftLeft(A, C, 2);
-
-	vectorSum(A, B, C);
-
+	vectorSub(A, B, C);
 
 	printNum(A);
-
 	printNum(B);
 
 	printNum(C);
