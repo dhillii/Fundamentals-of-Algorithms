@@ -248,106 +248,36 @@ void vectorSub(vector<int> inputArr1, vector<int> inputArr2, vector<int> &Result
 
 }
 
-void vectorMult(vector<int> inputArr1, vector<int> inputArr2, vector<int> outputArr)
+
+
+void vectorMult(vector<int> inputArr1, vector<int> inputArr2, vector<int> &outputArr)
 {
-	
-	int Largest;
-	int Smallest;
-	int numofAdditions = inputArr2.size();
-	int sum = 0;
-	int it = 0;
-	int carry_ = 0;
-	
-	vector<int> Final;
-	vector<vector<int> > additions;
+	int result = 0;
+	int max = vectortoInt(inputArr1);
 
-	for(int j = inputArr2.size(); j > 0; j--)
+	for(int i = 0; i < max; i++)
 	{
-		vector<int> temp;
-		vector<int> temp2;
-
-		for(int i = inputArr1.size(); i > 0; i-- )
-		{
-			int carry = 0;
-			int result = inputArr2[j-1] * inputArr1[i-1];
-
-			if(result > 9)
-			{
-				vector<int> temp3 = intToVector(result);
-				carry = temp3[0];
-
-				if(i == inputArr1.size()-1)
-				{
-					
-					temp.insert(temp.begin(), temp3[1] + carry );
-					//cout << temp3[1];
-
-				}
-
-				else
-				{
-					temp.insert(temp.begin(), temp3[1] + carry_ );
-				}
-			
-				if(i == 1 && carry_ > 0)
-				{
-					temp.insert(temp.begin(), carry );
-				}
-
-			}
-
-			else
-			{
-				temp.insert(temp.begin(), result);
-			}
-
-			carry_ = carry;
-				
-		}
-
-		shiftLeft(temp, temp2, it);
-		additions.push_back(temp2);
-		it++;
-
+		result = result + vectortoInt(inputArr2);
 	}
 
-	printNum(additions[0]);
+	outputArr = intToVector(result);
 
-	printNum(additions[1]);
-	
-	for(int j = inputArr2.size()-1; j >= 0; j--)
-	{
-		sum = sum + vectortoInt(additions[j]);
-	}
-
-	Final = intToVector(sum);
-
-	if(carry_ > 0)
-	{
-		Final.insert(Final.begin(), carry_);
-	}
-	
-
-	outputArr = Final;
-
-	//printNum(Final);
-
-	
 }
+
 
 int main()
 {
 	vector<int> A;
-	A.push_back(2);
-	A.push_back(3);
-	//A.push_back(1);
+	A.push_back(9);
+	//A.push_back(9);
+	//A.push_back(9);
 	//A.push_back(4);
 	
 
 	vector<int> B;
-	B.push_back(4);
-	B.push_back(5);
-	//B.push_back(1);
+	B.push_back(9);
+	//B.push_back(9);
+	//B.push_back(9);
 	//B.push_back(4);
 	
 
@@ -358,10 +288,10 @@ int main()
 	
 	vectorMult(A, B, C);
 
-	/*printNum(A);
+	printNum(A);
 	printNum(B);
 
-	printNum(C);*/
+	printNum(C);
 
 
 }
