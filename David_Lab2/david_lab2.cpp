@@ -264,35 +264,28 @@ void vectorMult(vector<int> inputArr1, vector<int> inputArr2, vector<int> &outpu
 
 }
 
-
 int main()
 {
-	vector<int> A;
-	A.push_back(9);
-	//A.push_back(9);
-	//A.push_back(9);
-	//A.push_back(4);
-	
+	int num1;
+	int num2;
+	vector<int> num1vec;
+	vector<int> num2vec;
 
-	vector<int> B;
-	B.push_back(9);
-	//B.push_back(9);
-	//B.push_back(9);
-	//B.push_back(4);
-	
+	vector<int> result;
 
+	cout << " Please Enter a number: ";
+	cin >> num1;
 
+	cout <<" Please Enter a number: ";
+	cin >> num2;
 
-	vector<int> C;
+	num1vec = intToVector(num1);
+	num2vec = intToVector(num2);
 
-	
-	vectorMult(A, B, C);
+	vectorMult(num1vec, num2vec, result);
 
-	printNum(A);
-	printNum(B);
+	cout << " " <<num1 << " x " << num2 << " = " << vectortoInt(result) << endl;
 
-	printNum(C);
-
+	return 0;
 
 }
-
