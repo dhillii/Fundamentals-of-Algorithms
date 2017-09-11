@@ -267,6 +267,7 @@ void vectorMult(vector<int> inputArr1, vector<int> inputArr2, vector<int> &outpu
 void vectorMult_DnC(vector<int> inputArr1, vector<int> inputArr2, vector<int> &outputArr)
 {
 
+
 	while(inputArr1.size() > inputArr2.size())				
 		{
 			inputArr2.insert(inputArr2.begin(), 0);
@@ -339,33 +340,35 @@ void vectorMult_Rec(vector<int> inputArr1, vector<int> inputArr2, vector<int> &o
 			inputArr1.insert(inputArr1.begin(), 0);
 		}
 
+	return vectorMult_DnC(inputArr1, inputArr2, outputArr);
+
 }
 
 
 int main()
 { 
-	int num1;
-	int num2;
+	
 	vector<int> num1vec;
 	vector<int> num2vec;
 
 	vector<int> result1;
 	vector<int> result2;
+	vector<int> result3;
 
-	cout << " Please Enter a number: ";
-	cin >> num1;
+	int num1 = 12;
+	int num2 = 12;
 
-	cout <<" Please Enter a number: ";
-	cin >> num2;
 
 	num1vec = intToVector(num1);
 	num2vec = intToVector(num2);
 
 	vectorMult_DnC(num1vec, num2vec, result1);
 	vectorMult(num1vec, num2vec, result2);
+	vectorMult_Rec(num1vec, num2vec, result3);
 
 	cout << " Div and Conc: " <<num1 << " x " << num2 << " = " << vectortoInt(result1) << endl;
 	cout << " Naive: " <<num1 << " x " << num2 << " = " << vectortoInt(result2) << endl;
+	cout << " Recursive: " <<num1 << " x " << num2 << " = " << vectortoInt(result3) << endl;
 
 	return 0;
 
