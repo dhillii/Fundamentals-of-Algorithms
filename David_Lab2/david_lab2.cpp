@@ -264,8 +264,70 @@ void vectorMult(vector<int> inputArr1, vector<int> inputArr2, vector<int> &outpu
 
 }
 
-int main()
+void vectorMult_DnC(vector<int> inputArr1, vector<int> inputArr2, vector<int> &outputArr)
 {
+
+	/*while(inputArr1.size() > inputArr2.size())				
+		{
+			inputArr2.insert(inputArr2.begin(), 0);
+		}
+
+	while(inputArr1.size() < inputArr2.size())		
+		{
+			inputArr1.insert(inputArr1.begin(), 0);
+		}*/
+
+	vector<int> vec_xl, vec_xr, vec_yl, vec_yr;
+
+	for(int i = 0; i<inputArr1.size(); i++)
+	{
+		if(i < inputArr1.size()/2)
+		{
+			vec_xl.push_back(inputArr1[i]);
+			vec_yl.push_back(inputArr2[i]);
+		}
+
+		else
+		{
+			vec_xr.push_back(inputArr1[i]);
+			vec_yr.push_back(inputArr2[i]);
+		}
+	}
+
+	vector<int> xl_mult_yl;
+	vector<int> xl_mult_yr;
+	vector<int> xr_mult_yl;
+	vector<int> xr_mult_yr;
+
+
+
+	vectorMult(vec_xl, vec_yl, xl_mult_yl);
+	vectorMult(vec_xl, vec_yr, xl_mult_yr);
+	vectorMult(vec_xr, vec_yl, xr_mult_yl);
+	vectorMult(vec_xr, vec_yr, xr_mult_yr);
+
+	vector<int> num1, num2, num3;
+
+	shiftLeft(xl_mult_yl, num1, inputArr1.size());
+
+	vectorSum(xl_mult_yr, xr_mult_yl, num2);
+
+	shiftLeft(num2, num3, inputArr1.size()/2);
+
+
+	vector<int> result1;
+	vector<int> result2;
+
+	vectorSum(num1, num3, result1);
+	vectorSum(result1, xr_mult_yr, result2);
+
+	outputArr = result2;
+
+
+
+}
+int main()
+{ 
 	int num1;
 	int num2;
 	vector<int> num1vec;
@@ -282,7 +344,7 @@ int main()
 	num1vec = intToVector(num1);
 	num2vec = intToVector(num2);
 
-	vectorMult(num1vec, num2vec, result);
+	vectorMult_DnC(num1vec, num2vec, result);
 
 	cout << " " <<num1 << " x " << num2 << " = " << vectortoInt(result) << endl;
 
