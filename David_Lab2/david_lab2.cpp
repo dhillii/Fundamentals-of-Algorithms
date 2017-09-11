@@ -267,7 +267,7 @@ void vectorMult(vector<int> inputArr1, vector<int> inputArr2, vector<int> &outpu
 void vectorMult_DnC(vector<int> inputArr1, vector<int> inputArr2, vector<int> &outputArr)
 {
 
-	/*while(inputArr1.size() > inputArr2.size())				
+	while(inputArr1.size() > inputArr2.size())				
 		{
 			inputArr2.insert(inputArr2.begin(), 0);
 		}
@@ -275,7 +275,7 @@ void vectorMult_DnC(vector<int> inputArr1, vector<int> inputArr2, vector<int> &o
 	while(inputArr1.size() < inputArr2.size())		
 		{
 			inputArr1.insert(inputArr1.begin(), 0);
-		}*/
+		}
 
 	vector<int> vec_xl, vec_xr, vec_yl, vec_yr;
 
@@ -326,6 +326,22 @@ void vectorMult_DnC(vector<int> inputArr1, vector<int> inputArr2, vector<int> &o
 
 
 }
+
+void vectorMult_Rec(vector<int> inputArr1, vector<int> inputArr2, vector<int> &outputArr)
+{
+	while(inputArr1.size() > inputArr2.size())				
+		{
+			inputArr2.insert(inputArr2.begin(), 0);
+		}
+
+	while(inputArr1.size() < inputArr2.size())		
+		{
+			inputArr1.insert(inputArr1.begin(), 0);
+		}
+
+}
+
+
 int main()
 { 
 	int num1;
@@ -333,7 +349,8 @@ int main()
 	vector<int> num1vec;
 	vector<int> num2vec;
 
-	vector<int> result;
+	vector<int> result1;
+	vector<int> result2;
 
 	cout << " Please Enter a number: ";
 	cin >> num1;
@@ -344,9 +361,11 @@ int main()
 	num1vec = intToVector(num1);
 	num2vec = intToVector(num2);
 
-	vectorMult_DnC(num1vec, num2vec, result);
+	vectorMult_DnC(num1vec, num2vec, result1);
+	vectorMult(num1vec, num2vec, result2);
 
-	cout << " " <<num1 << " x " << num2 << " = " << vectortoInt(result) << endl;
+	cout << " Div and Conc: " <<num1 << " x " << num2 << " = " << vectortoInt(result1) << endl;
+	cout << " Naive: " <<num1 << " x " << num2 << " = " << vectortoInt(result2) << endl;
 
 	return 0;
 
