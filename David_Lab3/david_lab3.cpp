@@ -142,8 +142,6 @@ int main()
 	vector<string> randseries;
 	vector<int> randseries2;
 
-	//cout << " F(10) = " << createSeries(10) << endl;
-
 	vect = createRandArr();
 
     cout << " [ ";
