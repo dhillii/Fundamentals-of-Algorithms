@@ -8,137 +8,11 @@ Due: 9/18/2017
 #include <vector>
 #include <string>
 #include <cstdlib>
+#include <random>
 
 using namespace std;
 
-int readNumberAsArrayFromString(string &num_as_string, vector<int> &num_array) 
-{
-  for (int i = 0; i < num_as_string.length(); i++) 
-  {
-      num_array.push_back(static_cast<int>(num_as_string[i]-'0'));
-  }
-  return num_as_string.length();
-}
 
-
-string numberAsArrayToString(vector<int> num_array, int length) {
-  if (length <= 0 ) 
-  {
-    return "NaN";
-  }
-  string num_string;
-  for (int i = 0; i < length; i++) 
-  {
-    num_string += static_cast<char>(num_array[i] + '0');
-  }
-  return num_string;
-}
-
-
-vector<int> intToVector(int input_num)
-{
-	vector<int> output_vector;
-	string input_num_str = to_string(input_num);
-	int sizeArr = readNumberAsArrayFromString(input_num_str, output_vector);
-	return output_vector;
-
-}
-
-int vectortoInt(vector<int> input_num)
-{
-	string input_num_str = numberAsArrayToString(input_num, input_num.size());
-	return stoi(input_num_str);
-}
-
-void printNum(vector<int> inputArr)
-{
-	for(int idx = 0; idx < inputArr.size(); idx++)
-	{
-		cout << inputArr[idx];
-	}
-
-	cout << endl;
-}
-
-
-/*void createSeries(int n)
-{
-	vector<vector<int> > series_arr;
-
-	for(int i = 1; i <= n+1; i++)
-	{
-		vector<int> temp;
-
-		if(i == 1)
-		{	
-			temp.push_back(1);
-			series_arr.push_back(temp);
-		}
-
-		else if(i == 2)
-		{
-			temp.push_back(1);
-			temp.push_back(1);
-			series_arr.push_back(temp);
-		}
-
-		else
-		{
-			vector<int> temp2;
-			temp = series_arr[i-2];
-
-			for(int j = 0; j < temp.size(); j++)
-			{
-
-				if(temp[j] == 1 && temp[j+1] == 1)
-				{
-					
-					temp2.push_back(2);
-					temp2.push_back(1);
-					j = j+1;
-				
-					
-				}
-
-				else if(temp[j] == 2 && temp[j+1] == 2)
-				{
-					temp2.push_back(2);
-					temp2.push_back(2);
-
-					j = j+1;
-				}
-
-				else if(temp[j] == 1)
-				{
-					temp2.push_back(1);
-					temp2.push_back(1);
-				}
-
-				else if(temp[j] == 2)
-				{
-					temp2.push_back(1);
-					temp2.push_back(2);
-				}
-
-				
-				
-				
-			}
-			series_arr.push_back(temp2);
-
-		}
-
-		
-	}
-
-	printNum(series_arr[0]);
-	printNum(series_arr[1]);
-	printNum(series_arr[2]);
-	printNum(series_arr[3]);
-	printNum(series_arr[4]);
-	printNum(series_arr[5]);
-
-}*/
 
 string createSeries(int n)
 {
@@ -188,11 +62,116 @@ string createSeries(int n)
 	return start_str;
 }
 
+vector<int> createRandArr()
+{
+	vector<int> randArr;
+
+	mt19937 rng;
+	rng.seed(random_device()());
+	uniform_int_distribution<std::mt19937::result_type> dist(5,14);
+
+	for(int i = 0; i < 10; i ++)
+	{
+		randArr.push_back(dist(rng));
+	}
+
+	return randArr;
+
+}
+
+vector<string> populateRandArr(vector<int> randArr)
+{
+	vector<string> result;
+
+	for(int i = 0; i < randArr.size(); i ++)
+	{
+		string temp = createSeries(randArr[i]);
+		result.push_back(temp);
+	}
+
+	return result;
+}
+
+void mergeSort(vector<int> &unsortedArr)
+{
+    if (unsortedArr.size() <= 1) {
+        return;
+    }
+
+    vector<int>::size_type middle = unsortedArr.size() / 2;
+    vector<int> left(unsortedArr.begin(), unsortedArr.begin() + middle);
+    vector<int> right(unsortedArr.begin() + middle, unsortedArr.end());
+
+    mergeSort(left);
+    mergeSort(right);
+
+    merge(left.begin(), left.end(), right.begin(), right.end(), unsortedArr.begin());
+}
+
+typedef std::vector<int>::iterator vec_iter;
+void merge(vec_iter left, vec_iter left_end, vec_iter right, vec_iter right_end, vec_iter numArr)
+{
+    while (left != left_end) 
+    {
+        if (*left < *right || right == right_end) 
+        {
+            *numArr = *left;
+            ++left;
+        } 
+        else 
+        {
+            *numArr = *right;
+            ++right;
+        }
+
+        ++numArr;
+    }
+
+    while (right != right_end) 
+    {
+        *numArr = *right;
+        ++right;
+        ++numArr;
+    }
+}
+
 
 int main()
 {
+	vector<int> vect;
+	vector<string> randseries;
+	vector<int> randseries2;
 
-	cout << createSeries(10);
+	//cout << " F(10) = " << createSeries(10) << endl;
+
+	vect = createRandArr();
+
+    cout << " [ ";
+	for(int i = 0; i < 10; i ++)
+	{
+		cout << vect[i] << ", ";
+	}
+	cout << "] " << endl;
+
+	mergeSort(vect);
+
+	cout << " [ ";
+	for(int i = 0; i < 10; i ++)
+	{
+		cout << vect[i] << ", ";
+	}
+	cout << "] " << endl;
+
+	randseries = populateRandArr(vect);
+
+	cout << " [ ";
+	for(int i = 0; i < 10; i ++)
+	{
+		cout << randseries[i] << ", ";
+		 
+	}
+	cout << "] " << endl;
+
 
 
 	return 0;
