@@ -215,7 +215,7 @@ void testPostfix()
 		
 
 		int test = postfixCalc(postfix_rep);
-		cout << " " << inputs[i] << " = " << test << endl;
+		cout << " " << inputs[i] << " == " << postfix_rep << " = " << test << endl << endl;
 		
 
 	}
@@ -263,14 +263,12 @@ void testPalindrome()
 
 int main()
 {
+	cout << "___Part 1c________________________________________________" << endl ;
 	testPalindrome();
 
+	cout << endl <<"___Part 2________________________________________________" << endl;
 	testPostfix();
 
-	//infixToPostfix("5 + ((1 + 2) * 4) - 3");
-
-	
-	
 
 	return 0;
 }
