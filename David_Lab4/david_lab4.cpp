@@ -140,7 +140,9 @@ void testPostfix()
 	inputs.push_back("8 2 / 4 5 + 3 2 -");
 	inputs.push_back("2 2 ^");
 	inputs.push_back("8 2 %");
-	inputs.push_back("20 3 %");
+	inputs.push_back("9 9 ^");
+	inputs.push_back("5 9 * 7 4 % 8 2 - 9 3 ^");
+	
 
 
 	for(int i = 0; i < inputs.size(); i++)
