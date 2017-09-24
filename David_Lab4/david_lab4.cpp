@@ -73,6 +73,70 @@ bool isPalindrome(string inputstr)
 	}
 }
 
+int priority(char a) 
+{
+    int temp;
+    if (a == '^')
+        temp = 1;
+    else  if (a == '*' || a == '/')
+        temp = 2;
+    else  if (a == '+' || a == '-')
+        temp = 3;
+    return temp;
+}
+
+string infixToPostfix(string inputstr)
+{
+	inputstr.erase(std::remove(inputstr.begin(), inputstr.end(), ' '), inputstr.end());
+	
+
+	Stack<char> op_stack;
+	string postfix;
+
+	char delchar;
+
+	for(int i = 0; i < inputstr.size(); i++)
+	{
+		if(inputstr[i] == '+' || inputstr[i] == '-' || inputstr[i] == '*' || inputstr[i] == '^' || inputstr[i] == '%' ||inputstr[i] == '/')
+		{
+			while(!op_stack.isEmpty() && priority(op_stack.getTop()->data) <= priority(inputstr[i]))
+			{
+				postfix.push_back(op_stack.getTop()->data);
+				op_stack.Pop(delchar);
+			}
+			op_stack.Push(inputstr[i]);
+		}
+
+		else if(inputstr[i] == '(')
+		{
+			op_stack.Push(inputstr[i]);
+		}
+
+		else if (inputstr[i] == ')')
+		{
+			while (op_stack.getTop()->data != '(') 
+			{
+                postfix.push_back(op_stack.getTop()->data);
+                op_stack.Pop(delchar);
+			}
+			op_stack.Pop(delchar);
+		}
+		else
+		{
+			postfix.push_back(inputstr[i]);
+		}
+	}
+
+	while (!op_stack.isEmpty()) 
+	{
+        postfix.push_back(op_stack.getTop()->data);
+        op_stack.Pop(delchar);
+    }
+
+   return postfix;
+
+
+}
 
 
 
@@ -132,22 +196,25 @@ void testPostfix()
 {
 	std::vector<string> inputs;
 
-	inputs.push_back("1 2 +");
-	inputs.push_back("3 1 -");
-	inputs.push_back("2 3 *");
-	inputs.push_back("4 5 * 3 +");
-	inputs.push_back("5 1 2 + 4 * + 3 -");
-	inputs.push_back("8 2 / 4 5 + 3 2 -");
-	inputs.push_back("2 2 ^");
-	inputs.push_back("8 2 %");
-	inputs.push_back("9 9 ^");
-	inputs.push_back("5 9 * 7 4 % 8 2 - 9 3 ^");
+	inputs.push_back("1 + 2");
+	inputs.push_back("3 - 1");
+	inputs.push_back("2 * 3");
+	inputs.push_back("3 + (4 * 5)");
+	inputs.push_back("5 + ((1 + 2) * 4) - 3");
+	inputs.push_back("((5 * 2) ^ 2) + (9/3)");
+	inputs.push_back("2 ^ 2");
+	inputs.push_back("8 % 2");
+	inputs.push_back("9 ^ 9");
+
 	
 
 
 	for(int i = 0; i < inputs.size(); i++)
 	{
-		int test = postfixCalc(inputs[i]);
+		string postfix_rep = infixToPostfix(inputs[i]); 
+		
+
+		int test = postfixCalc(postfix_rep);
 		cout << " " << inputs[i] << " = " << test << endl;
 		
 
@@ -199,6 +266,8 @@ int main()
 	testPalindrome();
 
 	testPostfix();
+
+	//infixToPostfix("5 + ((1 + 2) * 4) - 3");
 
 	
 	
