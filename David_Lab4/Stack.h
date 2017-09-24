@@ -4,14 +4,14 @@
 
 using namespace std;
 
-
+template <class T>
 struct node
 {
-	char data;
-	node * next;
+	T data;
+	node<T> * next;
 };
 
-
+template <typename T>
 class Stack
 {
 public:
@@ -19,15 +19,15 @@ public:
 	~Stack();
 	bool isFull() const;
 	bool isEmpty() const;
-	void Push(char);
-	void Pop(char &item);
-	node Top();
+	void Push(T item);
+	void Pop(T &item);
+	node<T> Top();
 	void printstack();
-	node * getTop();
+	node<T> * getTop();
 	int getSize();
 	
 private:
-	node * top_ptr;
+	node<T> * top_ptr;
 	int size;
 
 	

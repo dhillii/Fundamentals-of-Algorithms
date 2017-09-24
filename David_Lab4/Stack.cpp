@@ -3,8 +3,8 @@
 
 using namespace std;
 
-
-void Stack::Push(char item)
+template <typename T>
+void Stack<T>::Push(T item)
 //Adds new item to the top of the stack
 //Stack is bounded by size of memory
 //Pre: Stack is initialized
@@ -16,8 +16,8 @@ void Stack::Push(char item)
 	}
 	else
 	{
-	node * loc;
-	loc = new node;
+	node<T> * loc;
+	loc = new node<T>;
 	loc->data = item;
 	loc->next = top_ptr;
 	top_ptr = loc;
@@ -25,8 +25,8 @@ void Stack::Push(char item)
 	}
 }
 
-
-void Stack::Pop(char &item)
+template <typename T>
+void Stack<T>::Pop(T &item)
 //Removes top item from stack
 //Pre: Stack is initialized
 //Post: If stack is empty, prints message. Otherwise, delete top node and decrement size.
@@ -34,7 +34,7 @@ void Stack::Pop(char &item)
 	{
 		cout << "The Stack is empty..."<< endl;
 	}
-	node * temp;
+	node<T> * temp;
 	temp = top_ptr;
 	top_ptr = top_ptr->next;
 	item = temp->data;
@@ -42,16 +42,17 @@ void Stack::Pop(char &item)
 	size--;
 }
 
-Stack::Stack()	//Class constructor
+template <typename T>
+Stack<T>::Stack()	//Class constructor
 {
 	top_ptr = NULL;
 	size = 0;
 }
 
-
-Stack::~Stack()	//Class destructor
+template <typename T>
+Stack<T>::~Stack()	//Class destructor
 {
-	node * temp;
+	node<T> * temp;
 	
 	while(top_ptr != NULL)	//loop through stack and delete each node
 	{
@@ -62,21 +63,21 @@ Stack::~Stack()	//Class destructor
 }
 
 
-
-bool Stack::isEmpty()	const
+template <typename T>
+bool Stack<T>::isEmpty()	const
 // returns true if there are no elemets in the stack, otherwise false.
 {
 	return(top_ptr == NULL);
 }
 
-
-bool Stack::isFull()	const
+template <typename T>
+bool Stack<T>::isFull()	const
 //Returns true if there is no more room for another item on the free store, otherwise false
 {
-	node * loc;
+	node<T> * loc;
 	try
 	{
-		loc = new node;		// try to create and delete node
+		loc = new node<T>;		// try to create and delete node
 		delete loc;
 		return false;
 	}
@@ -86,14 +87,15 @@ bool Stack::isFull()	const
 	}
 }
 
-void Stack::printstack()
+template <typename T>
+void Stack<T>::printstack()
 //If stack is empty, print message, else, print stack contents.
 {
 	if(isEmpty())
 		cout << " The Stack is empty..." <<endl;
 	
 	
-	node * topcpy = top_ptr;
+	node<T> * topcpy = top_ptr;
 	
 	while(topcpy != NULL)
 	{
@@ -102,57 +104,14 @@ void Stack::printstack()
 	}
 }
 
-node * Stack::getTop()
+template <typename T>
+node<T> * Stack<T>::getTop()
 {
 	return(top_ptr);
 }
 
-int Stack::getSize()
+template <typename T>
+int Stack<T>::getSize()
 {
 	return size;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
