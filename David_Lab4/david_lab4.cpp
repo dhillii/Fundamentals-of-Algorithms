@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cmath>
+#include <vector>
 
 using namespace std;
 
@@ -25,7 +26,7 @@ int PerformOperation(char operation, int operand1, int operand2)
 	else if(operation == '%') 
 		return operand1 % operand2;
 	else if(operation == '^') 
-		return operand1 ^ operand2;
+		return pow(operand1, operand2);
 
 	else cout<<"Unexpected Error \n";
 	return -1; 
@@ -38,6 +39,11 @@ bool isPalindrome(string inputstr)
 
 
 	inputstr.erase(std::remove(inputstr.begin(), inputstr.end(), ' '), inputstr.end());
+	inputstr.erase(std::remove(inputstr.begin(), inputstr.end(), ','), inputstr.end());
+	inputstr.erase(std::remove(inputstr.begin(), inputstr.end(), '.'), inputstr.end());
+	inputstr.erase(std::remove(inputstr.begin(), inputstr.end(), '\''), inputstr.end());
+	inputstr.erase(std::remove(inputstr.begin(), inputstr.end(), ':'), inputstr.end());
+	inputstr.erase(std::remove(inputstr.begin(), inputstr.end(), ';'), inputstr.end());
 
 
 	for(int i = 0; i < inputstr.size(); i++)
@@ -122,31 +128,78 @@ int postfixCalc(string inputstr)
 
 }
 
-	
+void testPostfix()
+{
+	std::vector<string> inputs;
 
+	inputs.push_back("1 2 +");
+	inputs.push_back("3 1 -");
+	inputs.push_back("2 3 *");
+	inputs.push_back("4 5 * 3 +");
+	inputs.push_back("5 1 2 + 4 * + 3 -");
+	inputs.push_back("8 2 / 4 5 + 3 2 -");
+	inputs.push_back("2 2 ^");
+	inputs.push_back("8 2 %");
+	inputs.push_back("20 3 %");
+
+
+	for(int i = 0; i < inputs.size(); i++)
+	{
+		int test = postfixCalc(inputs[i]);
+		cout << " " << inputs[i] << " = " << test << endl;
+		
+
+	}
+
+}
+
+void testPalindrome()
+{
+	std::vector<string> inputs;
+
+	inputs.push_back("a");
+	inputs.push_back("aa");
+	inputs.push_back("aaa");
+	inputs.push_back("aba");
+	inputs.push_back("abba");
+	inputs.push_back("Taco cat");
+	inputs.push_back("Madam, I'm Adam");
+	inputs.push_back("A man, a plan, a canal: Panama");
+	inputs.push_back("Doc, note: I dissent. A fast never prevents a fatness. I diet on cod.");
+	inputs.push_back("David");
+	inputs.push_back("The Cow jumped over the Moon");
+	inputs.push_back("Hello Howard University!");
+	inputs.push_back("Sedan");
+	inputs.push_back("Minivan");
+	inputs.push_back("Bus");
+	inputs.push_back("Racecar");
+
+	for(int i = 0; i < inputs.size(); i++)
+	{
+		bool test = isPalindrome(inputs[i]);
+
+		if(test)
+			cout << endl << " The string \"" << inputs[i] << "\" is a Palindrome." << endl;
+		else
+			cout << endl <<" The string \"" << inputs[i] << "\" is not a Palindrome." << endl;
+
+	}
+
+
+
+}
+
+	
 
 
 int main()
 {
+	testPalindrome();
+
+	testPostfix();
+
 	
-
-	string input;
-
-	cout << " Please input a string: ";
-	getline(cin, input);
-
-	int result = postfixCalc(input);
-
-
-	cout << " " << input << " = " << result << endl;
-
-	/*bool test = isPalindrome(input);
-
-	if(test)
-		cout << endl << " The string " << input << " is a Palindrome." << endl;
-	else
-		cout << " The string " << input << " is not a Palindrome." << endl;
-	*/
+	
 
 	return 0;
 }
